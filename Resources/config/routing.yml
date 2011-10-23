@@ -1,0 +1,3 @@
+Zim32RequestLimitBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: Zim32RequestLimitBundle:Default:index }
