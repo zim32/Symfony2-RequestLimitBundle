@@ -7,14 +7,19 @@ use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \Symfony\Component\HttpFoundation\Session;
+use \Zim32\RequestLimitBundle\Lib\LimitEvent;
 
 
 class RequestLimit {
 	protected $rules = array();
+
 	protected $session;
+
+	protected $dispatcher;
 
 	public function __construct(ContainerInterface $container){
 		$this->session = $container->get('session');
+		$this->dispatcher = $container->get('event_dispatcher');
 	}
 
 	public function addRule($path, $limit, $per, $ip){
@@ -28,7 +33,14 @@ class RequestLimit {
 			if($matcher->matches($request)){
 				$this->logRequest($request, $rule);
 				if(!$this->checkRule($rule)){
-					$event->setResponse(new Response('', 503));
+					$e = new LimitEvent($this, $request);
+					$this->dispatcher->dispatch('handle.limit', $e);
+					if($e->hasResponse()){
+						$response = $e->getResponse();
+					}else{
+						$response = new Response('',503);
+					}
+					$event->setResponse($response);
 				}
 			}
 		}
