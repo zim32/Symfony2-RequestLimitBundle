@@ -1,12 +1,12 @@
 README
 ========
 
----------
+
 Overview
 ---------
 With this bundle you can easy limit requests to your application
 
----------
+
 Installation
 ---------
 1) Add Zim32RequestLimitBundle to your deps file
@@ -35,7 +35,7 @@ Make /bin/vendors install
 
 Will limit requests for 1 request per 60 seconds from ip 192.168.1.2 for URL starting with /profile/
 
----------
+
 Reference
 ---------
 
