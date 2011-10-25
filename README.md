@@ -16,14 +16,21 @@ Installation
         target=/bundles/Zim32/RequestLimitBundle
 Make /bin/vendors install
 
-2) Add Zim32 namespace into your /app/autoload.php
+2) Add Zim32RequestLimitBundle to your AppKernel
+
+	$bundles = array(
+		.................
+		new Zim32\RequestLimitBundle\Zim32RequestLimitBundle(),
+	);
+
+3) Add Zim32 namespace into your /app/autoload.php
 
      $loader->registerNamespaces(array(
          ................
          'Zim32'            => __DIR__.'/../vendor/bundles',
      ));
 
-3) Configure your application. For example
+4) Configure your application. For example
 
      zim32_request_limit:
        rules:
