@@ -68,6 +68,7 @@ class RequestLimit {
 	}
 
 	protected function checkRule(array $rule){
+		if($rule['limit'] == 0) return false;
 		$history = $this->getHistory($rule);
 		if(($count = count($history)) <= 1) return true;
 		$start = $history[0];
