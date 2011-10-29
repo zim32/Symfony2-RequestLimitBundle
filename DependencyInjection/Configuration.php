@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
 					->prototype('array')
 						->children()
 							->scalarNode('path')->isRequired(true)->cannotBeEmpty(true)->end()
-							->scalarNode('limit')->isRequired(true)->cannotBeEmpty(true)
+							->scalarNode('limit')->isRequired(true)
 								->validate()
 									->ifTrue(function($v){return !is_numeric($v);})
 									->thenInvalid("'Limit' must be numeric")
